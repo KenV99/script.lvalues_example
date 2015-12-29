@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings>
+  <category label="lvalues example">
+      <setting label="The selector below uses lvalues to provide localized choices" type="lsep" />
+      <setting ldefault="32003" id="myid" label="Selector" type="select" lvalues="32003|32004|32005" />
+      <setting label="The line below uses visible='eq(-2,Task1)' so you will see it" type="lsep" />
+      <setting label="You can see me" type="lsep" visible="eq(-2,Task1)" />
+      <setting label="The line below uses visible='eq(-4,32003)' so you won't see it" type="lsep" />
+      <setting label="You can't see me" type="lsep" visible="eq(-4,32003)" />
+
+  </category>
+</settings>
+
+<!--32003 = 'Task1', 32004 = 'Task2', 32005 = 'Task3'-->
