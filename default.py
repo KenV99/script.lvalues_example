@@ -17,32 +17,18 @@
 #    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
 import sys
-import xbmcaddon
-import xbmcgui
 
-def startdebugger():
-    debugegg = 'C:\\Program Files (x86)\\JetBrains\\PyCharm 5.0.2\\debug-eggs\\pycharm-debug.egg'
-    if os.path.exists(debugegg):
-        sys.path.append(debugegg)
-        try:
-            import pydevd
-        except ImportError:
-            pass
-        else:
-            pydevd.settrace('localhost', port=51234, stdoutToServer=True, stderrToServer=True, suspend=False)
+import xbmc
+from resources.lib.selector import selectordialog
 
 if __name__ == '__main__':
+    # You would add the below under the main of your pre-existing executable extension point.
     if len(sys.argv) > 1:
         if sys.argv[1] == 'lselector':
-            settingid = sys.argv[2]
-            # startdebugger()
-            choicesl = [32003, 32004, 32005]
-            choices = []
-            for choice in choicesl:
-                choices.append(xbmcaddon.Addon().getLocalizedString(choice))
-            result = xbmcgui.Dialog().select('Choose', choices)
-            xbmcaddon.Addon().setSetting('%sv' % settingid, choices[result])
-            xbmcaddon.Addon().setSetting(settingid, str(choicesl[result]))
-
+            try:
+                result = selectordialog(sys.argv[2:])
+            except (SyntaxError, TypeError) as e:
+                xbmc.log(msg='Error: %s' % str(e), level=xbmc.LOGERROR)
+            else:
+                pass  # Do something here if needed

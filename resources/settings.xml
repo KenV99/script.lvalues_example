@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <settings>
   <category label="lvalues example">
-      <setting label="The selector below uses lvalues to provide localized choices" type="lsep" />
-      <setting ldefault="32005" id="myid" label="Selector" type="select" lvalues="32003|32004|32005" />
-      <setting label="The line below uses visible='eq(-2,Task1)' so you will see it" type="lsep" />
-      <setting label="You can see me" type="lsep" visible="eq(-2,Task1)" />
-      <setting label="The line below uses visible='eq(-4,32003)' so you won't see it" type="lsep" />
-      <setting label="You can't see me" type="lsep" visible="eq(-4,32003)" />
 
       <setting label="The selector below calls a script that sets a setting" type="lsep" />
-      <setting label="Choose:" type="action" action="RunScript(script.lvalues_example, lselector, choice)" />
-      <setting label="Choice" type="text" id="choicev" enable="false" default="" />
-      <setting label="Choice" type="text" id="choice" visible="false" default="" />
-      <setting label="The line below uses visible='eq(-4,32003)' matching the hidden value" type="lsep" />
-      <setting label="You can see me" type="lsep" visible="eq(-2,32003)" />
+      <setting label="32001" type="action" action="RunScript(script.lvalues_example, lselector, id=choice, heading=Choose%_wisely, lvalues=32003|32004|32005)" />
+      <setting label="32002" type="text" id="choice-v" enable="false" default="" />
+      <setting label="" type="text" id="choice" visible="false" default="" />
+      <setting label="The line below uses visible='eq(-2,32003)' matching the hidden value" type="lsep" />
+      <setting label="You can see me if you choose Task 1" type="lsep" visible="eq(-2,32003)" />
 
   </category>
 </settings>
 
-<!--32003 = 'Task1', 32004 = 'Task2', 32005 = 'Task3'-->
+<!--32001 = 'Choose:', 32002 = 'Choice', 32003 = 'Task1', 32004 = 'Task2', 32005 = 'Task3'-->

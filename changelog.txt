@@ -1,1 +1,3 @@
+0.0.2 Example of workaround
+
 0.0.1 Initial

@@ -15,11 +15,11 @@ msgstr ""
 
 
 msgctxt "#32001"
-msgid "The selector below uses lvalues to provide localized choices"
+msgid "Choose:"
 msgstr ""
 
 msgctxt "#32002"
-msgid "Selector"
+msgid "Choice"
 msgstr ""
 
 msgctxt "#32003"
@@ -32,16 +32,4 @@ msgstr ""
 
 msgctxt "#32005"
 msgid "Task3"
-msgstr ""
-
-msgctxt "#32006"
-msgid "The line below uses visible='eq(-2,Task1)' so you will see it"
-msgstr ""
-
-msgctxt "#32007"
-msgid "The line below uses visible='eq(-4,32002)' so you won't see it"
-msgstr ""
-
-msgctxt "#32008"
-msgid "Can you see me?"
 msgstr ""
