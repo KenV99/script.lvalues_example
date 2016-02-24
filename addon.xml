@@ -7,6 +7,9 @@
   <extension point="xbmc.service" library="default.py" start="startup">
     <provides>executable</provides>
   </extension>
+  <extension point="xbmc.script" library="default.py">
+    <provides>executable</provides>
+  </extension>
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Example to illustrate issues with lvalues selector</summary>
     <description lang="en">Example to illustrate issues with lvalues selector

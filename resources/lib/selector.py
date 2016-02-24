@@ -29,11 +29,13 @@ def selectordialog(args):
         The plain id will contain the actual index value and is expected to be a hidden text element.
         This is the value to be tested against in subsequent conitionals.
         The string passed will be appended with '-v' i.e. myid-v. It is expected that this refers to a
-        disabled text element.
+        disabled selector element with the same lvalues as passed to the script.
+        NOTE: There is an undocumented feature of type="select" controls to set the default based on an lvalue:
+        ldefault="lvalue" where lvalue is a po string id.
     'useindex=bool': (Optional)If True, the zero based index of the subsequent lvalues will be stored in the hidden test
         element.
         If False or not provided, will store the actual lvalue in the hidden field.
-    'heading=str': (Optional) String for heading of dialog box. Replace spaces with '%_' i.e. 'Choose%_wiseley'
+    'heading=lvalue': (Optional) String id for heading of dialog box.
     'lvalues=int|int|int|...': (Required) The list of lvalues to display as choices.
 
     Usage example for settings.xml:
@@ -41,18 +43,17 @@ def selectordialog(args):
     <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
     <settings>
       <category label="lvalues example">
-
           <setting label="The selector below calls a script that sets a setting" type="lsep" />
-          <setting label="32001" type="action" action="RunScript(script.lvalues_example, lselector, id=choice, heading=Choose%_wisely, lvalues=32003|32004|32005)" />
-          <setting label="32002" type="text" id="choice-v" enable="false" default="" />
+          <setting label="32001" type="action" action="RunScript(script.lvalues_example, lselector, id=choice, heading=32007, lvalues=32006|32003|32004|32005)" />
+          <setting ldefault="32006" label="32002" type="select" id="choice-v" enable="false" lvalues="32006|32003|32004|32005" />
           <setting label="" type="text" id="choice" visible="false" default="" />
           <setting label="The line below uses visible='eq(-2,32003)' matching the hidden value" type="lsep" />
           <setting label="You can see me if you choose Task 1" type="lsep" visible="eq(-2,32003)" />
-
       </category>
     </settings>
 
     <!--32001 = 'Choose:', 32002 = 'Choice', 32003 = 'Task1', 32004 = 'Task2', 32005 = 'Task3'-->
+    <!--32006 = 'None', 32007 = 'Choose wisely'-->
 
     :param args: List of string args
     :type args: list
@@ -75,7 +76,7 @@ def selectordialog(args):
         elif kw == 'lvalues':
             lvalues_str = value.split('|')
         elif kw == 'heading':
-            heading = str.replace(value.strip(), '%_', ' ')
+            heading = value
     if lvalues_str is None or settingid is None:
         raise SyntaxError('Selector Dialog: Missing elements from args')
     lvalues = []
@@ -87,13 +88,20 @@ def selectordialog(args):
             raise TypeError('Selector Dialog: lvalue not int')
         else:
             choices.append(xbmcaddon.Addon().getLocalizedString(int(lvalue)))
-    result = xbmcgui.Dialog().select(heading=xbmcaddon.Addon().getLocalizedString(int(heading)), list=choices)
+    if heading != '':
+        try:
+            lheading = int(heading)
+        except TypeError:
+            raise TypeError('Selector Dialog: heading lvalue not int')
+    else:
+        lheading = ''
+    result = xbmcgui.Dialog().select(heading=xbmcaddon.Addon().getLocalizedString(lheading), list=choices)
     if result != -1:
         if useindex:
             xbmcaddon.Addon().setSetting(settingid, str(result))
         else:
             xbmcaddon.Addon().setSetting(settingid, str(lvalues[result]))
-        xbmcaddon.Addon().setSetting('%s-v' % settingid, choices[result])
+        xbmcaddon.Addon().setSetting('%s-v' % settingid, str(result))
         return True
     else:
         return False

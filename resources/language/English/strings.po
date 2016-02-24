@@ -33,3 +33,11 @@ msgstr ""
 msgctxt "#32005"
 msgid "Task3"
 msgstr ""
+
+msgctxt "#32006"
+msgid "None"
+msgstr ""
+
+msgctxt "#32007"
+msgid "Choose wisely"
+msgstr ""
